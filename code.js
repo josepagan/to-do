@@ -35,10 +35,10 @@ class Entry {
 class Book {
   constructor(name="Main book") {
     this.name = name;
-       
+
       this.entries = []
     }
-  
+
 
   add(entry) {
     this.entries.push(entry)
@@ -50,7 +50,7 @@ class Book {
    this.entries.splice(found,1);
    this.draw2()
    main.save()
-   
+
   }
 
 log(){
@@ -69,7 +69,7 @@ draw2() {
 }
 
 addTodoButton.addEventListener("click", () => {
-  let priorityValue = radioButtonsArray.find(element => element.checked).value;
+  const priorityValue = radioButtonsArray.find(element => element.checked).value;
   main.books[main._focusedBook].add(new Entry(addTodoText.value, priorityValue));
   //book.add(entry);
 
@@ -79,46 +79,18 @@ addTodoButton.addEventListener("click", () => {
 main.books[main._focusedBook].log()
 });
 
-//
-// function keygeneration(){
-//     let counter = 0
-//     return ()=>{counter++;
-//                 return "keyString"+counter}}
-//
-//
-//
-// }
-//
-// //each time key() it will return a string stringdata1,2,etc
-// function generateId(prefix, start) {
-//     var i = start || 0;
-//     return function() {
-//         return prefix + i++;
-//     }
-// }
-// let key = generateId(stringData,1);
-//
-//
-//
-
-
 class Main {
   constructor() {
+    if (localStorage.getItem('stringData')) {
+      this.books = JSON.parse(localStorage.getItem('stringData'));
 
+// this code sets the prototype of the raw data (probably not the most efficient way)
 
-  if (localStorage.getItem('stringData')) {
-  this.books = JSON.parse(localStorage.getItem('stringData'));
-
-//this code sets the prototype of the raw data (probably not the most efficient way)
-
-  this.books.forEach(object=>{Object.setPrototypeOf(object,Book.prototype);
-                            object.entries.forEach(object=>{Object.setPrototypeOf(object,Entry.prototype)})});
-
-
-
-  } else {
-    this.books = [new Book("Main")]
-  }
+      this.books.forEach((object)=>{Object.setPrototypeOf(object,Book.prototype);
+        object.entries.forEach((object)=>{Object.setPrototypeOf(object,Entry.prototype)})});
+    } else {
+      this.books = [new Book("Main")]
+    }
     this._focusedBook  = 0;//for the moment being lets default focused to las item
   }
   addNewBook() {
