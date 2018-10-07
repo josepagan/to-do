@@ -1,11 +1,10 @@
 const addTodoText = document.querySelector('input.addTodoText');
 const addTodoButton = document.querySelector('button.addTodoButton');
-const radioButtons = document.getElementsByName('priority')
-const radioButtonsArray = Array.from(radioButtons) //to use array methods we need conversion to Array
-const todoBox = document.getElementById('todoBox');
+const radioButtons = document.getElementsByName('priority');
+const radioButtonsArray = Array.from(radioButtons);
 
 function generateID() {
-  var S4 = function() {
+  let S4 = function() {
      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
   };
   return "ID"+(S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
@@ -21,9 +20,11 @@ class Entry {
     this.priority = priority;
     this.id = generateID()
   }
+
   get htmlEntry() {
     return `<p>${this.content} ${this.priority}<button id=${this.id} onclick="main.books[${main._focusedBook}].delete('${this.id}')"</button></p>`
   }
+
   appendTodoBox(){
     var containerDiv = document.createElement("div");
     containerDiv.innerHTML = this.htmlEntry;
@@ -57,15 +58,7 @@ log(){
   this.entries.forEach(entry=>console.log(entry.content,entry.priority))
 }
 
-//   draw() {
-//     this.clearBox();
-//     let htmlsection
-//     let element = document.createElement('div');
-//     this.entries.forEach(entry => {htmlsection += entry.htmlEntry})
-//     element.innerHTML = htmlsection;
-//     return todoBox.appendChild(element)
-// }
-draw2(){
+draw2() {
   this.clearBox();
   this.entries.forEach(entry=>{entry.appendTodoBox()})
 }
@@ -73,13 +66,7 @@ draw2(){
   clearBox() {
   todoBox.innerHTML = "";
 }
-
 }
-// const book = new Book("stringData");
-// book.draw();
-
-
-
 
 addTodoButton.addEventListener("click", () => {
   let priorityValue = radioButtonsArray.find(element => element.checked).value;
@@ -90,10 +77,7 @@ addTodoButton.addEventListener("click", () => {
   main.books[main._focusedBook].draw2();
   main.save();
 main.books[main._focusedBook].log()
-
-
-
-})
+});
 
 //
 // function keygeneration(){
@@ -120,9 +104,6 @@ main.books[main._focusedBook].log()
 
 class Main {
   constructor() {
-
-
-
 
 
   if (localStorage.getItem('stringData')) {
@@ -171,40 +152,8 @@ class Main {
 
 
 
-
-  const main = new Main;
+const main = new Main();
   main._focusedBook = main.books.length - 1;
   main.clearBox();
-  main.books[this._focusedBook].draw2();// 
-  main.books[this._focusedBook].log()
-
-
-
-
-
-
-
-
-// OLD WAY!!! IT WORKS, BUT IT IS FUN TO TRY NEW WAYS
-//
-// function loader(){
-//
-//  if (localStorage.getItem("stringData")) {
-//      let data = localStorage.getItem("stringData")
-//      return JSON.parse(data)
-//  } else {return {entries:[]}}
-// }
-//
-// const main = loader();
-//
-
-
-//
-// addTodoButton.addEventListener("click",(event)=>{
-//
-//     let priorityValue = radioButtonsArray.find(element=>element.checked).value;
-//     let entry = new Entry(addTodoText.value,priorityValue);
-//
-//     main.entries.push(entry)
-//     refreshEntries()
-// } )
+  main.books[main._focusedBook].draw2();
+  main.books[main._focusedBook].log();
