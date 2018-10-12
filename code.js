@@ -24,7 +24,7 @@ class Entry {
   }
 
   get htmlEntry() {
-    return `<p>${this.content} ${this.priority}<button id=${this.id} onclick="main.books[${main._focusedBook}].delete('${this.id}')"</button></p>`
+    return `<p>${this.content} ${this.priority} <i class="fas fa-minus-circle" id=${this.id} onclick="main.books[${main._focusedBook}].delete('${this.id}')"</i></button></p>`
   }
 
   appendTodoBox() {
@@ -132,6 +132,7 @@ addTodoButton.addEventListener('click', () => {
   main.clearBox();
   main.books[main._focusedBook].draw2();
   main.save();
+  addTodoText.value = "";
 });
 nextButton.addEventListener('click', () => { 
   if (main._focusedBook === main.books.length - 1) {
@@ -159,6 +160,7 @@ bookName.addEventListener('click', () => {
  input.addEventListener('keydown', (e) => {
    if (e.key === 'Enter') {
      main.books[main._focusedBook].name = input.value;
+     main.save();
      main.books[main._focusedBook].draw2();
      bookNameInput.innerHTML = "";
    }
