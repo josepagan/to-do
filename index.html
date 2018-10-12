@@ -5,27 +5,40 @@
     <meta charset="utf-8">
     <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 </head>
-<title></title>
+<title>To-Do</title>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="todoBox"></div>
-    <div id="focusedBookNumber"></div>
+    <div id="container">
+        <div class="box">
+            <div id="bookName">hola</div>
+            <div id="bookNameInput"></div>
+            <button id="prevButton">Prev</button>
+            <button id="nextButton">Next</button>
+        </div>
 
-    <div>
-        <input type = "text" class="addTodoText">
-        <button class= "addTodoButton">+</button>
-        <input type='radio' name='priority' value='1' checked>
-        <input type='radio' name='priority' value='2'>
-        <input type='radio' name='priority' value='3'>
-        <input type='radio' name='priority' value='4'>
-        <input type='radio' name='priority' value='5'>
+
+        <div id="todoBox"></div>
+        <div id="focusedBookNumber"></div>
+
+        <div>
+            <input type="text" class="addTodoText">
+            <button class="addTodoButton">+</button>
+        </div>
+        <div>
+            <input type='radio' name='priority' value='1' checked>
+            <input type='radio' name='priority' value='2'>
+            <input type='radio' name='priority' value='3'>
+            <input type='radio' name='priority' value='4'>
+            <input type='radio' name='priority' value='5'>
+        </div>
+
+
+
+
     </div>
-
-
-
-
-
 
     <script src="code.js"></script>
 </body>

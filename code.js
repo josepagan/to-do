@@ -2,6 +2,11 @@ const addTodoText = document.querySelector('input.addTodoText');
 const addTodoButton = document.querySelector('button.addTodoButton');
 const radioButtons = document.getElementsByName('priority');
 const radioButtonsArray = Array.from(radioButtons);
+const todoBox = document.querySelector('#todoBox');
+const bookName = document.querySelector('#bookName');
+const bookNameInput = document.querySelector('#bookNameInput');
+const prevButton = document.querySelector('#prevButton');
+const nextButton = document.querySelector('#nextButton');
 
 function generateID() {
   let S4 = function() {
@@ -35,6 +40,13 @@ class Book {
     this.entries = [];
   }
 
+  get htmlName() {
+    return `<p>${this.name}</p>`;
+  }
+
+  drawName() {
+    bookName.innerHTML = this.htmlName;
+  }
 
   add(entry) {
     this.entries.push(entry);
@@ -50,6 +62,7 @@ class Book {
 
   draw2() {
     this.clearBox();
+    this.drawName();
   this.entries.forEach(entry=>{entry.appendTodoBox()})
 }
 
@@ -88,9 +101,13 @@ class Main {
     todoBox.innerHTML = "";
   }
 
-  set focusedBook(index) {
-    this._focusedBook = index;
-  }
+  // set focusedBook(index) {
+  //   this._focusedBook = index;
+  // }
+
+  // get focusedBook() {
+  //   return this._focusedBook;
+  // }
 
   save() {
     const data = JSON.stringify(this.books);
@@ -104,7 +121,7 @@ class Main {
 }
 
 const main = new Main();
-main._focusedBook = main.books.length - 1;
+main._focusedBook = 0;
 main.clearBox();
 main.books[main._focusedBook].draw2();
 
@@ -116,3 +133,38 @@ addTodoButton.addEventListener('click', () => {
   main.books[main._focusedBook].draw2();
   main.save();
 });
+nextButton.addEventListener('click', () => { 
+  if (main._focusedBook === main.books.length - 1) {
+    main.addNewBook();
+    main.save();
+  } else {
+    main._focusedBook++;
+    main.books[main._focusedBook].draw2();
+  }
+});
+
+prevButton.addEventListener('click', () => { 
+  if (main._focusedBook > 0)
+  {
+    main._focusedBook--;
+    main.books[main._focusedBook].draw2();
+  }
+});
+
+bookName.addEventListener('click', () => {
+  bookName.innerHTML = "";
+  const input = document.createElement('input');
+ input.type = "text";
+ bookNameInput.appendChild(input);
+ input.addEventListener('keydown', (e) => {
+   if (e.key === 'Enter') {
+     main.books[main._focusedBook].name = input.value;
+     main.books[main._focusedBook].draw2();
+     bookNameInput.innerHTML = "";
+   }
+ });
+ 
+
+
+  
+})
